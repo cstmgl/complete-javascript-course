@@ -65,13 +65,19 @@ const controlSearch = async() => {
     //3c activate loader widget
     renderLoader(elements.searchRes);
 
-    //4a preform search
-    await state.search.getResults();
-    //4b stop loader
-    clearLoader(elements.searchRes);
+    try {
+      //4a preform search
+      await state.search.getResults();
+      //4b stop loader
+      clearLoader(elements.searchRes);
 
-    //5 render results on UI
-    searchView.renderResults(state.search.results);
+      //5 render results on UI
+      searchView.renderResults(state.search.results);
+    } catch (err) {
+      clearLoader(elements.searchRes);
+      alert('Error preforming search');
+      console.log(err);
+    }
   }
 };
 
@@ -100,20 +106,28 @@ const controlRecipe = async () => {
     // cleanup UI
 
     // create new recipe
-    state.currentRecipe = new Recipe(id);
+    state.curRec = new Recipe(id);
 
-    // get recipe data
-    await state.currentRecipe.getRecipe();
-    state.currentRecipe.calcTime();
-    state.currentRecipe.calcServings();
+    try {
+      // get recipe data
+      await state.curRec.getRecipe();
+      state.curRec.calcTime();
+      state.curRec.calcServings();
+      state.curRec.parseIngredients();
 
-    state.recipeData = state.currentRecipe.recipe;
+      state.curRecData = state.curRec.data;
   
-    // render recipe to UI
-    console.log(id);
-    console.log(state.recipeData);
-
+      // render recipe to UI
+      console.log(state.curRec);
+      console.log(state.curRecData);
+    } catch (err) {
+      alert('Error requesting new Recipe');
+      console.log(err);
+    }
   }
 }
 
-window.addEventListener('hashchange', controlRecipe);
+// window.addEventListener('hashchange', controlRecipe);
+// window.addEventListener('load', controlRecipe);
+
+['hashchange','load'].forEach(event => window.addEventListener(event,controlRecipe));
