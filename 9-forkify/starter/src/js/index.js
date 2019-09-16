@@ -65,10 +65,8 @@ const controlSearch = async() => {
     //4b stop loader
     clearLoader(elements.searchRes);
 
-
     //5 render results on UI
     searchView.renderResults(state.search.results);
-
   }
 };
 
@@ -77,3 +75,10 @@ elements.searchForm.addEventListener('submit', e => {
   controlSearch();
 });
 
+elements.searchResPages.addEventListener('click', e => {
+  const btn = e.target.closest('.btn-inline');
+  if (btn) {
+    const goToPage = parseInt(btn.dataset.goto, 10);
+    searchView.renderResults(state.search.results, goToPage);
+  }
+});
