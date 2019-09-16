@@ -13,8 +13,6 @@ export const clearInput = () => {
 export const clearResults = () => {
     elements.searchResList.innerHTML = '';
     elements.searchResPages.innerHTML = '';
-    console.log('after clear ');
-    console.log(elements.searchResPages);
 };
 
 const limitRecipeTile = (title, limit = 17) => {
@@ -56,10 +54,10 @@ const createButton = (page, type) => {
 
     return `
     <button class="btn-inline results__btn--${type}" data-goto=${numPages}>
+        <span>Page ${numPages}</span>
         <svg class="search__icon">
             <use href="img/icons.svg#icon-triangle-${icon}"></use>
         </svg>
-        <span>Page ${numPages}</span>
     </button>
             `;
 };
@@ -67,9 +65,6 @@ const createButton = (page, type) => {
 const renderPageButtons = (page, numResults, resPerPage)  => {
     const pages = Math.ceil(numResults / resPerPage);
 
-    console.log(`my error page ${page} pages ${pages} `);
-    console.log('before ');
-    console.log(elements.searchResPages);
     let paginButton = '';
     if (page === 1 && pages > 1) {
         // only next button
@@ -84,7 +79,6 @@ const renderPageButtons = (page, numResults, resPerPage)  => {
             ${createButton(page, 'next')}
         `;
     }
-    console.log(`my error ${paginButton}`);
     elements.searchResPages.insertAdjacentHTML('afterbegin', paginButton);
 };
 
@@ -94,8 +88,5 @@ export const renderResults = (recipes, page = 1, resPerPage = 5) => {
     const end = page * resPerPage;
     recipes.slice(start, end).forEach(renderRecipe);
     renderPageButtons(page, recipes.length, resPerPage);
-
-    console.log('after ');
-    console.log(elements.searchResPages);
 };
 
