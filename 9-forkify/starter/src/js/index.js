@@ -33,6 +33,7 @@
 // getResults('tomato pasta');
 
 import Search from './models/Search';
+import Recipe from './models/Recipe';
 import * as searchView from './views/searchView';
 import { elements, renderLoader, clearLoader } from './views/base';
 
@@ -43,6 +44,10 @@ import { elements, renderLoader, clearLoader } from './views/base';
 // - liked recipes
 const state = {};
 
+
+/**
+ * Search Controller
+ */
 const controlSearch = async() => {
   //1 get query from view
   const query = searchView.getInput(); // get from view
@@ -82,6 +87,27 @@ elements.searchResPages.addEventListener('click', e => {
     const goToPage = parseInt(btn.dataset.goto, 10);
     searchView.clearResults();
     searchView.renderResults(state.search.results, goToPage);
+
+  }
+});
+
+/**
+ * Recipe Controller
+ */
+elements.searchRes.addEventListener('click', e => {
+  console.log('add event on recipt click?');
+  console.log(e.target);
+  const recipe = e.target.closest('.results_link');
+  if (recipe) {
+    console.log(recipe);
   }
 
+
+
+  // await state.recipe.getResult();
+
+
 });
+
+state.recipe = new Recipe(36259);
+state.recipe.getRecipe();
