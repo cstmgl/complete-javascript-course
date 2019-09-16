@@ -14,12 +14,11 @@ export default class recipe {
           if (res.data.error && res.data.error === "limit") {
             alert('Limit of API uses reached');
           } else {
-            this.data = res.data.recipe;
-            this.image = this.data.image_url;
-            this.title = this.data.title;
-            this.ingredients = this.data.ingredients;
-            this.publisher = this.data.publisher;
-            this.author = this.data.author ? this.data.author : null;
+            this.rawData = res.data.recipe;
+            this.image = this.rawData.image_url;
+            this.title = this.rawData.title;
+            this.ingredients = this.rawData.ingredients;
+            this.author = this.rawData.publisher;
           }
         } catch (error) {
           alert(error);
@@ -61,7 +60,7 @@ export default class recipe {
           let count;
           
           if (arrCount.length === 1) {
-            count = eval(arrIng[0].replace('-','+').join('+'));
+            count = eval(arrIng[0].replace('-','+'));
           } else {
             count = eval(arrIng.slice(0, unitIndex).join('+'));
           }

@@ -115,11 +115,10 @@ const controlRecipe = async () => {
       state.curRec.calcServings();
       state.curRec.parseIngredients();
 
-      state.curRecData = state.curRec.data;
+      state.curRecRawData = state.curRec.rawData;
   
       // render recipe to UI
       console.log(state.curRec);
-      console.log(state.curRecData);
     } catch (err) {
       alert('Error requesting new Recipe');
       console.log(err);
