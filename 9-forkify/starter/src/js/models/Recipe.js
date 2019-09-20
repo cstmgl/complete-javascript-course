@@ -40,11 +40,13 @@ export default class recipe {
     parseIngredients() {
       const unitsLong = ['tablespoons','tablespoon','ounces','ounce','teaspoons','teaspoon','cups','pounds'];
       const unitsShort = ['tbsp','tbsp','oz','oz','tsp','tsp','cup','pound'];
+      const units = [...unitsShort,'kg','g','mg','l','dl','ml','cl'];
+
       const newIngredients = this.ingredients.map(el => {
         // uniform units
         let ingredient = el.toLowerCase();
         unitsLong.forEach((unit, i) => {
-          ingredient = ingredient.replace(unit, unitsShort[i]);
+          ingredient = ingredient.replace(unit, units[i]);
         });
 
         // remove special chars
@@ -52,7 +54,7 @@ export default class recipe {
 
         // parse ingrediants into count, unit and ingredient
         const arrIng = ingredient.split(' ');
-        const unitIndex = arrIng.findIndex(el2 => unitsShort.includes(el2));
+        const unitIndex = arrIng.findIndex(el2 => units.includes(el2));
 
         let objIng;
         if (unitIndex > -1) {
@@ -63,7 +65,9 @@ export default class recipe {
           if (arrCount.length === 1) {
             count = eval(arrIng[0].replace('-','+'));
           } else {
-            count = eval(arrIng.slice(0, unitIndex).join('+'));
+            // filter for non numbers
+            const units = arrIng.slice(0, unitIndex).filter(el => {return !isNaN(parseFloat(el))});
+            count = eval(units.join('+'));
           }
 
           objIng = {

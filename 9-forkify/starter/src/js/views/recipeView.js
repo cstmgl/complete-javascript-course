@@ -1,6 +1,6 @@
 import { elements } from './base';
 
-export const clearRecipes = () => {
+export const clearRecipe = () => {
     elements.recipe.innerHTML = '';
 };
 
@@ -70,17 +70,16 @@ const renderRecipeIngredient = item => {
         </div>
     </li>
         `;
-    // this will not work needs to reference the previous generated element
-    elements.recipe.insertAdjacentHTML('beforeend', markup);
+    return markup;
 };
 
 const renderRecipeIngredients = recipe => {
     const markup = `
     <div class="recipe__ingredients">
     <ul class="recipe__ingredient-list">
-
+        ${recipe.ingredients.map(el => renderRecipeIngredient(el)).join('')}
     </ul>
-    
+
     <button class="btn-small recipe__btn">
         <svg class="search__icon">
             <use href="img/icons.svg#icon-shopping-cart"></use>
@@ -90,8 +89,6 @@ const renderRecipeIngredients = recipe => {
     </div>
         `;
     elements.recipe.insertAdjacentHTML('beforeend', markup);
-
-    recipe.ingredients.forEach(renderRecipeIngredient);
 };
 
 const renderRecipeInstructions = recipe => {
@@ -114,8 +111,6 @@ const renderRecipeInstructions = recipe => {
 };
 
 export const renderRecipe = recipe => {
-    // clear old one
-    clearRecipes();
     // render the image
     renderRecipeImage(recipe);
     // render the details
@@ -124,7 +119,6 @@ export const renderRecipe = recipe => {
     renderRecipeIngredients(recipe);
     // render the instructions
     renderRecipeInstructions(recipe);
-
 }
 
 
