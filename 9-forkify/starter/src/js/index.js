@@ -120,6 +120,8 @@ const controlRecipe = async () => {
   
       // render recipe to UI
       console.log(state.curRec);
+      searchView.renderRecipe(state.curRec);
+
     } catch (err) {
       alert('Error requesting new Recipe');
       console.log(err);

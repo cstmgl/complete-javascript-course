@@ -13,7 +13,7 @@ const renderRecipeImage = recipe => {
     </h1>
     </figure>
         `;
-    elements.recipe.insertAdjacentHTML('beforeend', markup);
+    elements.recipe.insertAdjacentHTML('afterbegin', markup);
 };
 
 const renderRecipeDetails = recipe => {
@@ -70,6 +70,7 @@ const renderRecipeIngredient = item => {
         </div>
     </li>
         `;
+    // this will not work needs to reference the previous generated element
     elements.recipe.insertAdjacentHTML('beforeend', markup);
 };
 
@@ -93,7 +94,6 @@ const renderRecipeIngredients = recipe => {
     recipe.ingredients.forEach(renderRecipeIngredient);
 };
 
-
 const renderRecipeInstructions = recipe => {
     const markup = `
     <div class="recipe__directions">
@@ -113,7 +113,18 @@ const renderRecipeInstructions = recipe => {
     elements.recipe.insertAdjacentHTML('beforeend', markup);
 };
 
+export const renderRecipe = recipe => {
+    // clear old one
+    clearRecipes();
+    // render the image
+    renderRecipeImage(recipe);
+    // render the details
+    renderRecipeDetails(recipe);
+    // render the ingredients
+    renderRecipeIngredients(recipe);
+    // render the instructions
+    renderRecipeInstructions(recipe);
 
-
+}
 
 
