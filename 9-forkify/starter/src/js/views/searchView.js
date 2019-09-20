@@ -15,6 +15,16 @@ export const clearResults = () => {
     elements.searchResPages.innerHTML = '';
 };
 
+export const highlightSelected = id => {
+    const results = Array.from(document.querySelectorAll('.results__link--active'));
+    if (results) {
+        results.forEach(el => {
+            el.classList.remove('results__link--active')
+        });
+    }
+    document.querySelector(`a[href="#${id}"]`).classList.add('results__link--active');
+}
+
 const limitRecipeTile = (title, limit = 17) => {
     const newTitle = [];
     if (title.length > limit) {
