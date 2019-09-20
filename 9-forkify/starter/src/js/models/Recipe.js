@@ -18,6 +18,7 @@ export default class recipe {
             this.image = this.rawData.image_url;
             this.title = this.rawData.title;
             this.ingredients = this.rawData.ingredients;
+            this.url = this.rawData.title; // todo
             this.author = this.rawData.publisher;
           }
         } catch (error) {
