@@ -39,7 +39,6 @@ const controlSearch = async() => {
     try {
       //4a preform search
       await state.search.getResults();
-      console.log(state);
 
     } catch (err) {
       clearLoader(elements.searchRes);
@@ -98,7 +97,6 @@ const controlRecipe = async () => {
       state.curRec.parseIngredients();
 
       state.curRecRawData = state.curRec.rawData;
-      console.log(state);
     } catch (err) {
       alert('Error requesting new Recipe');
       console.log(err);
