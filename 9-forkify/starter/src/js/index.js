@@ -1,9 +1,11 @@
 import Search from './models/Search';
 import Recipe from './models/Recipe';
 import IngredientList from './models/IngredientList';
+import FavouriteList from './models/FavouriteList';
 import * as searchView from './views/searchView';
 import * as recipeView from './views/recipeView';
 import * as ingredientListView from './views/ingredientListView';
+import * as favouriteListView from './views/favouriteListView';
 import { elements, renderLoader, clearLoader } from './views/base';
 
 // global state of the application
@@ -106,7 +108,10 @@ const controlRecipe = async () => {
     clearLoader(elements.recipe);
 
     // render recipe to UI
-    recipeView.renderRecipe(state.curRec);
+    recipeView.renderRecipe(
+      state.curRec, 
+      (state.likes ? state.likes.isLiked(id) : false)
+    );
   }
 }
 
@@ -148,8 +153,40 @@ elements.shopping.addEventListener('click', e => {
 });
 
 
+/**
+ * Like Controller
+ */
+const updateLikes = () => {
+  if(!state.likes) {
+    state.likes = new FavouriteList();
+  }
+
+  // user has not liked?
+  if (!state.likes.isLiked(state.curRec.id)) {
+    // add to list
+    state.likes.addLike(state.curRec);
+    favouriteListView.renderLike(state.curRec);
+
+    // change icon
+    favouriteListView.toggleLikeBtn(true);
+
+  } 
+  else {
+    // remove from list
+    state.likes.removeLike(state.curRec.id);
+    favouriteListView.deleteLike(state.curRec.id);
+
+    // change icon
+    favouriteListView.toggleLikeBtn(false);
+  }
+
+  favouriteListView.toggleLikeMenu(state.likes.getNumLikes());
+}
+
+
 // Handling recipe button clicks
 elements.recipe.addEventListener('click', e => {
+  // manage the servings
   if (e.target.matches('.btn-dec, .btn-dec *')) {
     // Decrease button is clicked
     if (state.curRec.servings > 1)  {
@@ -160,10 +197,15 @@ elements.recipe.addEventListener('click', e => {
     // Increase button is clicked
     state.curRec.updateServings('inc');
     recipeView.udpdateServingsIngredients(state.curRec);
-
+  }
+  
   // add ingredients to the list
-  } else if (e.target.matches('.recipe__btn--add, .recipe__btn--add *')) {
+  else if (e.target.matches('.recipe__btn--add, .recipe__btn--add *')) {
     controlList();
+  } 
+  // manage the likes/favourites
+  else if (e.target.matches('.recipe__love, .recipe__love *')){
+    updateLikes();
   }
 });
 

@@ -18,7 +18,7 @@ export default class IngredientList {
 
     deleteItem (id) {
         const index = this.items.findIndex( el => el.id === id);
-        this.items.splice(index, 1); 
+        return this.items.splice(index, 1); 
     }
 
     updateCount(id, newCount) {
