@@ -1,7 +1,9 @@
 import Search from './models/Search';
 import Recipe from './models/Recipe';
+import IngredientList from './models/IngredientList';
 import * as searchView from './views/searchView';
 import * as recipeView from './views/recipeView';
+import * as ingredientListView from './views/ingredientListView';
 import { elements, renderLoader, clearLoader } from './views/base';
 
 // global state of the application
@@ -10,6 +12,7 @@ import { elements, renderLoader, clearLoader } from './views/base';
 // - shopping list object
 // - liked recipes
 const state = {};
+window.state = state; //for testing
 
 /**
  * Search Controller
@@ -112,6 +115,39 @@ const controlRecipe = async () => {
 
 ['hashchange','load'].forEach(event => window.addEventListener(event,controlRecipe));
 
+/**
+ * List Controller
+ */
+const controlList = () => {
+  if (!state.ingredientList) {
+    state.ingredientList = new IngredientList();
+  }
+  
+  // add each ingredient to the list and user interface
+  state.curRec.ingredients.forEach(el => {
+    const item = state.ingredientList.addItem(el.count, el.unit, el.ingredient);
+    ingredientListView.renderItem(item);
+  });
+}
+
+elements.shopping.addEventListener('click', e => {
+  const id = e.target.closest('.shopping__item').dataset.itemid;
+  // delete items from list
+  if (e.target.matches('.shopping__delete, .shopping__delete *')) {
+    // delete from state
+    state.ingredientList.deleteItem(id);
+
+    // delete from UI
+    ingredientListView.deleteItem(id);
+
+  // manage the shopping count
+  } else if (e.target.matches('.shopping__count--value, .shopping__count--value *')) {
+    const val = parseFloat(e.target.value, 10);
+    state.ingredientList.updateCount(id, val);
+  }
+});
+
+
 // Handling recipe button clicks
 elements.recipe.addEventListener('click', e => {
   if (e.target.matches('.btn-dec, .btn-dec *')) {
@@ -124,5 +160,10 @@ elements.recipe.addEventListener('click', e => {
     // Increase button is clicked
     state.curRec.updateServings('inc');
     recipeView.udpdateServingsIngredients(state.curRec);
+
+  // add ingredients to the list
+  } else if (e.target.matches('.recipe__btn--add, .recipe__btn--add *')) {
+    controlList();
   }
 });
+

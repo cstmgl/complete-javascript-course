@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {herokuappProxy as proxy, apiKey as key } from '../config';
 
-export default class recipe {
+export default class Recipe {
 
     constructor(id) {
         this.id = id;

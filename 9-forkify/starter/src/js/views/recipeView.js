@@ -100,7 +100,7 @@ const renderRecipeIngredients = recipe => {
         ${recipe.ingredients.map(el => renderRecipeIngredient(el)).join('')}
     </ul>
 
-    <button class="btn-small recipe__btn">
+    <button class="btn-small recipe__btn recipe__btn--add">
         <svg class="search__icon">
             <use href="img/icons.svg#icon-shopping-cart"></use>
         </svg>
