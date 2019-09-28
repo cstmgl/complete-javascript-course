@@ -157,9 +157,6 @@ elements.shopping.addEventListener('click', e => {
  * Like Controller
  */
 const updateLikes = () => {
-  if(!state.likes) {
-    state.likes = new FavouriteList();
-  }
 
   // user has not liked?
   if (!state.likes.isLiked(state.curRec.id)) {
@@ -182,6 +179,20 @@ const updateLikes = () => {
 
   favouriteListView.toggleLikeMenu(state.likes.getNumLikes());
 }
+
+window.addEventListener('load', () => {
+  // I think having the read in the constructor should be fine. let's see...
+  if(!state.likes) {
+    state.likes = new FavouriteList();
+  }
+
+  // update the likes menu
+  favouriteListView.toggleLikeMenu(state.likes.getNumLikes());
+
+  // render existing likes if any
+  state.likes.likes.forEach(like => favouriteListView.renderLike(like));
+
+});
 
 
 // Handling recipe button clicks

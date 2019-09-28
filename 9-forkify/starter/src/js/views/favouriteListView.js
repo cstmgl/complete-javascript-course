@@ -35,5 +35,5 @@ export const toggleLikeBtn = isLiked => {
 }
 
 export const toggleLikeMenu = numLikes => {
-    elements.likesMenu.style.visibitly = numLikes > 0 ? 'visible' : 'hidden';
+    elements.likesMenu.style.visibility = numLikes > 0 ? 'visible' : 'hidden';
 }
