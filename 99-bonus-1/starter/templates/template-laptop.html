@@ -6,9 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://fonts.googleapis.com/css?family=Bungee+Inline|Nunito+Sans" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
 
-    <title>{%PRODUCTNAME%}</title>
+    <title>##_PRODUCTNAME_##</title>
 
     <style>
         *,
@@ -218,24 +217,24 @@
     <div class="container">
         <h1>The Laptop Store!</h1>
         <figure class="laptop">
-            <p class="laptop__price">${%PRICE%}</p>
-            <a href="overview.html" class="laptop__back"><span class="emoji-left">👈</span>Back</a>
+            <p class="laptop__price">$##_PRICE_##</p>
+            <a href="/" class="laptop__back"><span class="emoji-left">👈</span>Back</a>
             <div class="laptop__hero">
-                <img src="{%IMAGE%}" alt="{%PRODUCTNAME%}" class="laptop__img">
+                <img src="##_IMAGE_##" alt="##_PRODUCTNAME_##" class="laptop__img">
             </div>
-            <h2 class="laptop__name">{%PRODUCTNAME%}</h2>
+            <h2 class="laptop__name">##_PRODUCTNAME_##</h2>
             <div class="laptop__details">
-                <p><span class="emoji-left">🖥</span> {%SCREEN%}</p>
-                <p><span class="emoji-left">🧮</span> {%CPU%}</p>
-                <p><span class="emoji-left">💾</span> {%STORAGE%}</p>
-                <p><span class="emoji-left">📦</span> {%RAM%}</p>
+                <p><span class="emoji-left">🖥</span> ##_SCREEN_##</p>
+                <p><span class="emoji-left">🧮</span> ##_CPU_##</p>
+                <p><span class="emoji-left">💾</span> ##_STORAGE_##</p>
+                <p><span class="emoji-left">📦</span> ##_RAM_##</p>
             </div>
             <p class="laptop__description">
-                {%DESCRIPTION%}
+                ##_DESCRIPTION_##
             </p>
             <p class="laptop__source">Source: <a href="https://www.techradar.com/news/mobile-computing/laptops/best-laptops-1304361"
                     target="_blank">https://www.techradar.com/news/mobile-computing/laptops/best-laptops-1304361</a></p>
-            <a href="#" class="laptop__link">Buy now for ${%PRICE%} <span class="emoji-right">🥳 😍</span></a>
+            <a href="#" class="laptop__link">Buy now for $##_PRICE_## <span class="emoji-right">🥳 😍</span></a>
         </figure>
     </div>
 </body>
